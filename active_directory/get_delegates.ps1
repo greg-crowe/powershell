@@ -1,0 +1,3 @@
+# Go though all mailboxes (warning -- potentially expensive) and export a list of each mailbox which has delegates and those delegated accounts.
+
+Get-Mailbox -ResultSize unlimited | Get-CalendarProcessing | where { $_.ResourceDelegates -ne "" } | Select-Object identity,@{Name=’ResourceDelegates’;Expression={[string]::join(",", ($_.ResourceDelegates))}} | Export-csv -Path c:\temp\ResourceDelegates.csv
